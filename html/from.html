@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .gender-label {
+            margin-right: 10px;
+        }
+
+        #submit-btn, #reset-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #reset-btn {
+            background-color: #e74c3c;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background-color: #fff;
+            width: 80%;
+            max-width: 400px;
+            margin: 20% auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <form id="surveyForm" onsubmit="return false">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" required>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="checkbox" id="male" class="gender-checkbox" required>
+                <label class="gender-label" for="male">Male</label>
+                <input type="checkbox" id="female" class="gender-checkbox" required>
+                <label class="gender-label" for="female">Female</label>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" required>
+            </div>
+            <div class="form-group">
+                <button id="submit-btn" onclick="submitForm()">Submit</button>
+                <button id="reset-btn" onclick="resetForm()">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup">
+        <div class="popup-content">
+            <h2>Form Data:</h2>
+            <p>First Name: <span id="popup-firstName"></span></p>
+            <p>Last Name: <span id="popup-lastName"></span></p>
+            <p>Date of Birth: <span id="popup-dob"></span></p>
+            <p>Country: <span id="popup-country"></span></p>
+            <p>Gender: <span id="popup-gender"></span></p>
+            <p>Profession: <span id="popup-profession"></span></p>
+            <p>Email: <span id="popup-email"></span></p>
+            <p>Mobile Number: <span id="popup-mobile"></span></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const dob = document.getElementById("dob").value;
+            const country = document.getElementById("country").value;
+            const genderElements = document.getElementsByClassName("gender-checkbox");
+            const gender = [...genderElements].filter(el => el.checked).map(el => el.nextSibling.textContent).join(", ");
+            const profession = document.getElementById("profession").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+
+            // Display data in the popup
+            document.getElementById("popup-firstName").textContent = firstName;
+            document.getElementById("popup-lastName").textContent = lastName;
+            document.getElementById("popup-dob").textContent = dob;
+            document.getElementById("popup-country").textContent = country;
+            document.getElementById("popup-gender").textContent = gender;
+            document.getElementById("popup-profession").textContent = profession;
+            document.getElementById("popup-email").textContent = email;
+            document.getElementById("popup-mobile").textContent = mobile;
+
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            resetForm();
+        }
+    </script>
+</body>
+</html>
